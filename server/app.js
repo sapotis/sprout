@@ -21,7 +21,7 @@ const backendPrefix = "/api";
 app.use(`${backendPrefix}/`, indexRouter);
 app.use(`${backendPrefix}/users`, usersRouter);
 
-app.set("port", process.env.PORT || 8000);
+app.set("port", process.env.PORT || 3001);
 
 app.listen(app.get("port"), () => {
   console.log(`Listening on ${app.get("port")}`);
