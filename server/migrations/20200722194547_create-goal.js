@@ -1,8 +1,8 @@
-export const up = (knex) =>
+exports.up = (knex) =>
   knex.schema.createTable("goals", (table) => {
-    table.increments("id");
-    table.unique("user_id");
-    table.unique("parent_goal");
+    table.increments("id").primary();
+    table.integer("user_id");
+    table.foreign("user_id").references("users.id");
     table.timestamp("created_at").defaultTo(knex.fn.now());
     table.string("name");
     table.string("description");
@@ -10,6 +10,9 @@ export const up = (knex) =>
     table.date("end_date");
     table.boolean("completed");
     table.string("frequency");
+    table.integer("parent_goal");
+    table.foreign("parent_goal").references("goals.id");
+    table.unique(["id", "user_id", "parent_goal"]);
   });
 
-export const down = (knex) => knex.schema.dropTable("goals");
+exports.down = (knex) => knex.schema.dropTable("goals");
