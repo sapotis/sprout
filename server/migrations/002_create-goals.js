@@ -18,7 +18,6 @@ const up = (knex) =>
       .references("goals.id")
       .onDelete("CASCADE")
       .onUpdate("CASCADE");
-    table.unique(["id", "user_id", "parent_goal"]);
   });
 
 const down = (knex) => knex.schema.dropTable("goals");

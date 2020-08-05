@@ -1,8 +1,7 @@
 const users = "users";
 
-export function seed(knex) {
-  // Deletes ALL existing entries
-  return knex(users)
+const seed = (knex) =>
+  knex(users)
     .del()
     .then(function () {
       // Inserts seed entries
@@ -19,13 +18,10 @@ export function seed(knex) {
           first_name: "Sprout",
         },
         {
-          username: "sproutling",
-          email: "sproutling2@blooming.com",
-        },
-        {
           username: "AAARRRGGHH",
           email: "AAARRRGGHH@trollmarket.info",
         },
       ]);
     });
-}
+
+exports.seed = seed;
