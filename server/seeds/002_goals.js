@@ -1,13 +1,11 @@
+const goals = "goals";
 
-exports.seed = function(knex) {
+export function seed(knex) {
   // Deletes ALL existing entries
-  return knex('table_name').del()
+  return knex(goals)
+    .del()
     .then(function () {
       // Inserts seed entries
-      return knex('table_name').insert([
-        {id: 1, colName: 'rowValue1'},
-        {id: 2, colName: 'rowValue2'},
-        {id: 3, colName: 'rowValue3'}
-      ]);
+      return knex(goals).insert([]);
     });
-};
+}
