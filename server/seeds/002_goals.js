@@ -14,6 +14,12 @@ const seed = (knex) =>
           user_id: 2,
         },
         { name: "become troll again", end_date: "2020-02-19", user_id: 3 },
+        {
+          name: "read newspaper",
+          end_date: "2020-09-19",
+          user_id: 1,
+          parent_goal: 1,
+        },
       ]);
     });
 
