@@ -10,10 +10,5 @@
     "type": "git",
     "url": "git+https://github.com/sapotis/sprout.git"
   },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/sapotis/sprout/issues"
-  },
-  "homepage": "https://github.com/sapotis/sprout#readme"
+  "homepage": "https://sprout-sapotis.herokuapp.com/"
 }
