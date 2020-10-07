@@ -4,7 +4,7 @@
   "description": "A goals tracking application with a few twists.",
   "main": "index.js",
   "scripts": {
-    "start": "cd server && knex migrate:latest && knex seed:run && npm run start-all",
+    "start": "cd server && npm run start-all",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
