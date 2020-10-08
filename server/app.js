@@ -5,6 +5,7 @@ const logger = require("morgan");
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
+const goalsRouter = require("./routes/goals");
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(express.urlencoded({ extended: false }));
 const backendPrefix = "/api";
 app.use(`${backendPrefix}/`, indexRouter);
 app.use(`${backendPrefix}/users`, usersRouter);
+app.use(`${backendPrefix}/goals`, goalsRouter);
 
 app.set("port", process.env.PORT || 3001);
 
