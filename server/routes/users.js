@@ -1,16 +1,18 @@
-var express = require('express');
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
+const db = require("../controllers/users");
 
 /* GET all users */
-router.get('/', function(req, res, next) {
-  // And insert something like this instead:
-  res.json([{
-  	id: 1,
-  	username: "sdhani"
-  }, {
-  	id: 2,
-  	username: "blinkous"
-  }]);
+router.get("/", async (req, res, next) => {
+  // And insert something like this instead
+  // response.status(200).send(getUsers());
+  try {
+    await db.getUsers().then((users) => {
+      res.status(200).json(users);
+    });
+  } catch (err) {
+    res.status(500).json({ error: "Unable to get all user." });
+  }
 });
 
 module.exports = router;

@@ -1,4 +1,4 @@
-const createError = require("http-errors");
+// const createError = require("http-errors");
 const express = require("express");
 const path = require("path");
 const logger = require("morgan");
@@ -10,7 +10,7 @@ const app = express();
 
 // view engine setup
 // Serve static files from the React app
-app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(path.join(__dirname, "client/build")));
 // app.use(express.static(path.join(__dirname, './')));
 
 app.use(logger("dev"));
