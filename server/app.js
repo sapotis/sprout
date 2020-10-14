@@ -1,16 +1,17 @@
-const createError = require("http-errors");
+// const createError = require("http-errors");
 const express = require("express");
 const path = require("path");
 const logger = require("morgan");
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
+const goalsRouter = require("./routes/goals");
 
 const app = express();
 
 // view engine setup
 // Serve static files from the React app
-app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(path.join(__dirname, "client/build")));
 // app.use(express.static(path.join(__dirname, './')));
 
 app.use(logger("dev"));
@@ -20,6 +21,7 @@ app.use(express.urlencoded({ extended: false }));
 const backendPrefix = "/api";
 app.use(`${backendPrefix}/`, indexRouter);
 app.use(`${backendPrefix}/users`, usersRouter);
+app.use(`${backendPrefix}/goals`, goalsRouter);
 
 app.set("port", process.env.PORT || 3001);
 
