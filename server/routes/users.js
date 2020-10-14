@@ -3,13 +3,12 @@ const router = express.Router();
 const db = require("../controllers/users");
 
 /* GET all users */
-router.get("/", async (req, res, next) => {
+router.get("/", async (req, res) => {
   try {
-    await db.getUsers().then((users) => {
-      res.status(200).json(users);
-    });
+    const users = await db.getUsers();
+    res.status(200).json(users);
   } catch (err) {
-    res.status(500).json({ error: "Unable to get all user." });
+    res.status(500).json({ error: "Unable to get all of the users." });
   }
 });
 
