@@ -4,8 +4,6 @@ const db = require("../controllers/users");
 
 /* GET all users */
 router.get("/", async (req, res, next) => {
-  // And insert something like this instead
-  // response.status(200).send(getUsers());
   try {
     await db.getUsers().then((users) => {
       res.status(200).json(users);
