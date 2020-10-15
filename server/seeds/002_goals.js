@@ -20,6 +20,11 @@ const seed = (knex) =>
           user_id: 1,
           parent_goal: 1,
         },
+        {
+          name: "drive human automobile",
+          end_date: "2020-09-19",
+          user_id: 1,
+        },
       ]);
     });
 

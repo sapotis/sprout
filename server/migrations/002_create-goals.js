@@ -5,7 +5,8 @@ const up = (knex) =>
       .integer("user_id")
       .references("users.id")
       .onDelete("CASCADE")
-      .onUpdate("CASCADE");
+      .onUpdate("CASCADE")
+      .notNullable();
     table.timestamp("created_at").defaultTo(knex.fn.now());
     table.string("name").notNullable();
     table.string("description");

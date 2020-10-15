@@ -3,6 +3,7 @@ const up = (knex) =>
     table.increments("id").primary();
     table.string("username").notNullable().unique();
     table.string("email").notNullable().unique();
+    table.string("password").notNullable();
     table.timestamp("created_at").defaultTo(knex.fn.now());
     table.string("first_name");
     table.string("last_name");
