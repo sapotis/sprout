@@ -14,10 +14,30 @@ router.get("/", async (req, res) => {
 
 /* POST a goal */
 router.post("/", async (req, res) => {
-  const { name, end_date, user_id } = req.body;
+  const {
+    name,
+    end_date,
+    user_id,
+    description,
+    category,
+    completed,
+    frequency,
+    parent_goal,
+  } = req.body;
+
+  const goalObject = {
+    name,
+    end_date,
+    user_id,
+    description,
+    category,
+    completed,
+    frequency,
+    parent_goal,
+  };
 
   try {
-    const goals = await db.addGoal(name, end_date, user_id);
+    const goals = await db.addGoal(goalObject);
     res.status(200).json(goals);
   } catch (err) {
     res.status(500).json({ error: "Unable to post the goal." });

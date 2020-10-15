@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react";
+import GoalForm from "./components/GoalForm";
 
 export default function App() {
-  const currDate = new Date();
   const [users, setUsers] = useState([]);
   const [goals, setGoals] = useState([]);
-  const [name, setGoalName] = useState("");
-  const [end_date, setGoalEndDate] = useState(currDate);
-  const userId = 1;
 
   useEffect(() => {
     fetch("/api/users")
@@ -17,6 +14,23 @@ export default function App() {
       .then((res) => res.json())
       .then((data) => setGoals(data));
   }, []);
+
+  const getUserId = () => {
+    /* For grabbing the user_id **once authentication is in place */
+    return 1; // Default for now
+  };
+
+  const handleGoalSubmit = (goalObj) => {
+    const sendObj = { ...goalObj, user_id: getUserId() };
+
+    fetch("/api/goals", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(sendObj),
+    });
+  };
 
   return (
     <>
@@ -54,45 +68,7 @@ export default function App() {
         ))}
       </table>
 
-      <form
-        action=""
-        onSubmit={(e) => {
-          console.log("app clie", name, end_date, userId);
-          /* Add goal to db table goals*/
-          e.preventDefault();
-          fetch("/api/goals", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              name: name,
-              end_date: end_date,
-              user_id: userId,
-            }),
-          });
-        }}
-      >
-        <fieldset>
-          <input
-            type="text"
-            onChange={({ currentTarget: { value } }) => {
-              setGoalName(value);
-            }}
-            placeholder="Goal Name"
-          />
-          <input
-            type="text"
-            onChange={({ currentTarget: { value } }) => {
-              setGoalEndDate(value);
-            }}
-            placeholder="Goal End Date"
-            defaultValue={`${currDate}`}
-            size={100}
-          />
-          <button type="submit">Add Goal</button>
-        </fieldset>
-      </form>
+      <GoalForm onSubmit={handleGoalSubmit} />
     </>
   );
 }
