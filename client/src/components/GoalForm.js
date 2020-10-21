@@ -1,29 +1,37 @@
 import React, { useState } from "react";
 import "../styles/GoalForm.css";
 
-const GoalForm = ({ onSubmit }) => {
+const GoalForm = ({ onSubmit, goal }) => {
   const currDate = new Date();
   /* State Names exactly match the field names in the backend */
-  const [name, setName] = useState("");
-  const [end_date, setEndDate] = useState(currDate);
-  const [description, setDescription] = useState(null);
-  const [category, setCategory] = useState(null);
-  const [completed, setCompleted] = useState(null);
-  const [frequency, setFrequency] = useState(null);
-  const [parent_goal, setParent_goal] = useState(null);
+  const [id, setId] = useState(goal ? goal.id : null);
+  const [name, setName] = useState(goal ? goal.name : "");
+  const [end_date, setEndDate] = useState(goal ? goal.end_date : currDate);
+  const [description, setDescription] = useState(
+    goal ? goal.description : null
+  );
+  const [category, setCategory] = useState(goal ? goal.category : null);
+  const [completed, setCompleted] = useState(goal ? goal.completed : null);
+  const [frequency, setFrequency] = useState(goal ? goal.frequency : null);
+  const [parent_goal, setParent_goal] = useState(
+    goal ? goal.parent_goal : null
+  );
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit &&
-      onSubmit({
-        name,
-        end_date,
-        description,
-        category,
-        completed,
-        frequency,
-        parent_goal,
-      });
+    let goalObject = {
+      name,
+      end_date,
+      description,
+      category,
+      completed,
+      frequency,
+      parent_goal,
+    };
+    if (id) {
+      goalObject = { ...goalObject, id };
+    }
+    onSubmit && onSubmit(goalObject);
   };
 
   return (
@@ -35,6 +43,7 @@ const GoalForm = ({ onSubmit }) => {
             setName(value);
           }}
           placeholder="Title"
+          defaultValue={name}
           required
         />
 
@@ -46,6 +55,7 @@ const GoalForm = ({ onSubmit }) => {
           placeholder="End Date"
           defaultValue={`${currDate}`}
           size={100}
+          defaultValue={end_date}
           required
         />
 
@@ -54,6 +64,7 @@ const GoalForm = ({ onSubmit }) => {
           onChange={({ currentTarget: { value } }) => {
             setDescription(value);
           }}
+          defaultValue={description}
           placeholder="Description"
         ></textarea>
 
@@ -62,6 +73,7 @@ const GoalForm = ({ onSubmit }) => {
           onChange={({ currentTarget: { value } }) => {
             setCategory(value);
           }}
+          defaultValue={category}
           placeholder="Category"
         />
 
@@ -70,6 +82,7 @@ const GoalForm = ({ onSubmit }) => {
           onChange={({ currentTarget: { value } }) => {
             setFrequency(value);
           }}
+          defaultValue={frequency}
           placeholder="Frequency"
         />
 

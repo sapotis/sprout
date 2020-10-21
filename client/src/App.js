@@ -5,6 +5,8 @@ import Login from "./components/Login";
 export default function App() {
   const [goals, setGoals] = useState([]);
   const [userId, setUserId] = useState(1);
+  // const [userId, setUserId] = useState(null);
+  const [goalToEdit, setGoalToEdit] = useState(false);
 
   useEffect(() => {
     fetch(`/api/goals/${userId}`)
@@ -24,6 +26,20 @@ export default function App() {
     });
   };
 
+  const handleGoalEditSubmit = (goalObj) => {
+    const sendObj = { ...goalObj, user_id: userId };
+
+    fetch("/api/goals", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(sendObj),
+    }).then(() => {
+      setGoalToEdit(false);
+    });
+  };
+
   return (
     <>
       {userId ? (
@@ -33,6 +49,7 @@ export default function App() {
             <tr>
               <th>Goal Id</th>
               <th>Goal Name</th>
+              <th>Goal Desc</th>
               <th>Goal End Date</th>
               <th>Goal User ID</th>
             </tr>
@@ -40,13 +57,27 @@ export default function App() {
               <tr key={goal.id}>
                 <td>{goal.id}</td>
                 <td>{goal.name}</td>
+                <td>{goal.description || ""}</td>
                 <td>{goal.end_date}</td>
                 <td>{goal.user_id}</td>
+                <td>
+                  <button
+                    onClick={() => {
+                      setGoalToEdit(goal);
+                    }}
+                  >
+                    Edit
+                  </button>
+                </td>
               </tr>
             ))}
           </table>
 
           <GoalForm onSubmit={handleGoalSubmit} />
+
+          {goalToEdit && (
+            <GoalForm goal={goalToEdit} onSubmit={handleGoalEditSubmit} />
+          )}
         </>
       ) : (
         <Login

@@ -6,8 +6,7 @@ const db = require("../controllers/goals");
 router.get("/:user_id", async (req, res) => {
   try {
     const { user_id } = req.params;
-    const goals = await db.getGoal(user_id);
-    console.log("GOALSS", goals);
+    const goals = await db.getGoals(user_id);
     res.status(200).json(goals);
   } catch (err) {
     res.status(500).json({ error: "Unable to get the goal(s)." });
@@ -43,6 +42,41 @@ router.post("/", async (req, res) => {
     res.status(200).json(goals);
   } catch (err) {
     res.status(500).json({ error: "Unable to post the goal." });
+  }
+});
+
+router.put("/", async (req, res) => {
+  const {
+    id,
+    name,
+    end_date,
+    user_id,
+    description,
+    category,
+    completed,
+    frequency,
+    parent_goal,
+  } = req.body;
+
+  const goalObject = {
+    id,
+    name,
+    end_date,
+    user_id,
+    description,
+    category,
+    completed,
+    frequency,
+    parent_goal,
+  };
+
+  console.log("RECEIVED GOAL OBJECT OF : ", goalObject);
+
+  try {
+    const goals = await db.updateGoal(goalObject);
+    res.status(200).json(goals);
+  } catch (err) {
+    res.status(500).json({ error: "Unable to update the goal." });
   }
 });
 
