@@ -10,4 +10,7 @@ module.exports = {
   updateGoal(goalObject) {
     return knex("goals").where("id", goalObject.id).update(goalObject);
   },
+  deleteGoal(id) {
+    return knex("goals").where({ id }).del();
+  },
 };

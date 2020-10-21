@@ -8,11 +8,14 @@ export default function App() {
   // const [userId, setUserId] = useState(null);
   const [goalToEdit, setGoalToEdit] = useState(false);
 
-  useEffect(() => {
+  const getGoals = () => {
     fetch(`/api/goals/${userId}`)
       .then((res) => res.json())
       .then((data) => setGoals(data));
-  }, []);
+  };
+  useEffect(() => {
+    getGoals();
+  }, [userId]);
 
   const handleGoalSubmit = (goalObj) => {
     const sendObj = { ...goalObj, user_id: userId };
@@ -23,6 +26,8 @@ export default function App() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(sendObj),
+    }).then(() => {
+      getGoals();
     });
   };
 
@@ -37,6 +42,19 @@ export default function App() {
       body: JSON.stringify(sendObj),
     }).then(() => {
       setGoalToEdit(false);
+      getGoals();
+    });
+  };
+
+  const handleGoalDelete = (goalId) => {
+    fetch("/api/goals", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: goalId }),
+    }).then(() => {
+      getGoals();
     });
   };
 
@@ -67,6 +85,15 @@ export default function App() {
                     }}
                   >
                     Edit
+                  </button>
+                </td>
+                <td>
+                  <button
+                    onClick={() => {
+                      handleGoalDelete(goal.id);
+                    }}
+                  >
+                    Delete
                   </button>
                 </td>
               </tr>

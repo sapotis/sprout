@@ -80,4 +80,13 @@ router.put("/", async (req, res) => {
   }
 });
 
+router.delete("/", async (req, res) => {
+  const { id } = req.body;
+  try {
+    const goals = await db.deleteGoal(id);
+    res.status(200).json(goals);
+  } catch (err) {
+    res.status(500).json({ error: "Unable to delete the goal." });
+  }
+});
 module.exports = router;

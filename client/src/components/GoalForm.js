@@ -86,7 +86,7 @@ const GoalForm = ({ onSubmit, goal }) => {
           placeholder="Frequency"
         />
 
-        <button type="submit">Add Goal</button>
+        <button type="submit">{goal ? "Update Goal" : "Add Goal"}</button>
       </fieldset>
     </form>
   );
