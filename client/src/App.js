@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import GoalForm from "./components/GoalForm";
+import Login from "./components/Login";
 
 export default function App() {
   const [users, setUsers] = useState([]);
   const [goals, setGoals] = useState([]);
+  const [userId, setUserId] = useState(null);
 
   useEffect(() => {
     fetch("/api/users")
@@ -15,13 +17,8 @@ export default function App() {
       .then((data) => setGoals(data));
   }, []);
 
-  const getUserId = () => {
-    /* For grabbing the user_id **once authentication is in place */
-    return 1; // Default for now
-  };
-
   const handleGoalSubmit = (goalObj) => {
-    const sendObj = { ...goalObj, user_id: getUserId() };
+    const sendObj = { ...goalObj, user_id: userId };
 
     fetch("/api/goals", {
       method: "POST",
@@ -34,41 +31,36 @@ export default function App() {
 
   return (
     <>
-      <h2>Homepage rendered</h2>
+      {userId ? (
+        <>
+          <h3>Goals</h3>
+          <table>
+            <tr>
+              <th>Goal Id</th>
+              <th>Goal Name</th>
+              <th>Goal End Date</th>
+              <th>Goal User ID</th>
+            </tr>
+            {goals.map((goal) => (
+              <tr key={goal.id}>
+                <td>{goal.id}</td>
+                <td>{goal.name}</td>
+                <td>{goal.end_date}</td>
+                <td>{goal.user_id}</td>
+              </tr>
+            ))}
+          </table>
 
-      <h3>Users</h3>
-      <table>
-        <tr>
-          <th>User Id</th>
-          <th>User Name</th>
-        </tr>
-        {users.map((user) => (
-          <tr key={user.id}>
-            <td>{user.id}</td>
-            <td>{user.username}</td>
-          </tr>
-        ))}
-      </table>
-
-      <h3>Goals</h3>
-      <table>
-        <tr>
-          <th>Goal Id</th>
-          <th>Goal Name</th>
-          <th>Goal End Date</th>
-          <th>Goal User ID</th>
-        </tr>
-        {goals.map((goal) => (
-          <tr key={goal.id}>
-            <td>{goal.id}</td>
-            <td>{goal.name}</td>
-            <td>{goal.end_date}</td>
-            <td>{goal.user_id}</td>
-          </tr>
-        ))}
-      </table>
-
-      <GoalForm onSubmit={handleGoalSubmit} />
+          <GoalForm onSubmit={handleGoalSubmit} />
+        </>
+      ) : (
+        <Login
+          onClick={(userid) => {
+            console.log("User id", userid);
+            setUserId(userid);
+          }}
+        />
+      )}
     </>
   );
 }
