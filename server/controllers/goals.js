@@ -7,4 +7,7 @@ module.exports = {
   addGoal(goalObject) {
     return knex("goals").insert(goalObject);
   },
+  getGoal(user_id) {
+    return knex("goals").where("user_id", user_id);
+  },
 };

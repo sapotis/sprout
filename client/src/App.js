@@ -3,16 +3,11 @@ import GoalForm from "./components/GoalForm";
 import Login from "./components/Login";
 
 export default function App() {
-  const [users, setUsers] = useState([]);
   const [goals, setGoals] = useState([]);
-  const [userId, setUserId] = useState(null);
+  const [userId, setUserId] = useState(1);
 
   useEffect(() => {
-    fetch("/api/users")
-      .then((res) => res.json())
-      .then((data) => setUsers(data));
-
-    fetch("/api/goals")
+    fetch(`/api/goals/${userId}`)
       .then((res) => res.json())
       .then((data) => setGoals(data));
   }, []);

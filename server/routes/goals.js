@@ -3,9 +3,11 @@ const router = express.Router();
 const db = require("../controllers/goals");
 
 /* GET all goals */
-router.get("/", async (req, res) => {
+router.get("/:user_id", async (req, res) => {
   try {
-    const goals = await db.getGoals();
+    const { user_id } = req.params;
+    const goals = await db.getGoal(user_id);
+    console.log("GOALSS", goals);
     res.status(200).json(goals);
   } catch (err) {
     res.status(500).json({ error: "Unable to get the goal(s)." });
