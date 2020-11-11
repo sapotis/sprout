@@ -12,4 +12,15 @@ router.get("/", async (req, res) => {
   }
 });
 
+/* Get user */
+router.get("/user/:username/:password", async (req, res) => {
+  try {
+    const { username, password } = req.params;
+    const user = await db.getUser(username, password);
+    res.status(200).json(user[0].id);
+  } catch (err) {
+    res.status(500).json({ error: "Unable to find user." });
+  }
+});
+
 module.exports = router;
