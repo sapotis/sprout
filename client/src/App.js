@@ -4,8 +4,8 @@ import Login from "./components/Login";
 
 export default function App() {
   const [goals, setGoals] = useState([]);
-  // const [userId, setUserId] = useState(1); // Testing only
-  const [userId, setUserId] = useState(null);
+  const [userId, setUserId] = useState(1); // Testing
+  // const [userId, setUserId] = useState(null);
   const [goalToEdit, setGoalToEdit] = useState(false);
 
   const getGoals = () => {
