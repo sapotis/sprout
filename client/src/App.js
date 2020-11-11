@@ -4,15 +4,18 @@ import Login from "./components/Login";
 
 export default function App() {
   const [goals, setGoals] = useState([]);
-  const [userId, setUserId] = useState(1);
-  // const [userId, setUserId] = useState(null);
+  // const [userId, setUserId] = useState(1); // Testing only
+  const [userId, setUserId] = useState(null);
   const [goalToEdit, setGoalToEdit] = useState(false);
 
   const getGoals = () => {
     fetch(`/api/goals/${userId}`)
       .then((res) => res.json())
-      .then((data) => setGoals(data));
+      .then((data) => {
+        Array.isArray(data) && setGoals(data);
+      });
   };
+
   useEffect(() => {
     getGoals();
   }, [userId]);
