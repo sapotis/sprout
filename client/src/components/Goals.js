@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import GoalForm from "./GoalForm";
-import { deleteGoalAPI, getGoalsAPI, updateGoalAPI } from "./utils";
 
 const Goals = ({ goals, handleGoalEditSubmit, handleGoalDelete }) => {
   const [goalToEdit, setGoalToEdit] = useState(false);
