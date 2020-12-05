@@ -37,7 +37,7 @@ const GoalForm = ({ onSubmit, goal }) => {
   };
 
   return (
-    <form action="" onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit}>
       <fieldset>
         <input
           type="text"
@@ -49,7 +49,7 @@ const GoalForm = ({ onSubmit, goal }) => {
           required
         />
 
-        {/* datetime-local isn't supported in safari, temp solution */}
+        {/* datetime-local isn't supported in safari */}
         <input
           type="datetime-local"
           onChange={({ currentTarget: { value } }) => {
