@@ -1,5 +1,3 @@
-// eifj;oij
-
 export const getGoalsAPI = async (userId) => {
   const goalsJson = await fetch(`/api/goals/${userId}`);
   const goals = await goalsJson.json();
