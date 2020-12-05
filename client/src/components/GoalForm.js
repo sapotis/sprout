@@ -6,7 +6,9 @@ const GoalForm = ({ onSubmit, goal }) => {
   /* State Names exactly match the field names in the backend */
   const [id, setId] = useState(goal ? goal.id : null);
   const [name, setName] = useState(goal ? goal.name : "");
-  const [end_date, setEndDate] = useState(goal ? goal.end_date : currDate);
+  const [end_date, setEndDate] = useState(
+    goal ? new Date(goal.end_date) : currDate
+  );
   const [description, setDescription] = useState(
     goal ? goal.description : null
   );
@@ -35,7 +37,7 @@ const GoalForm = ({ onSubmit, goal }) => {
   };
 
   return (
-    <form action="" onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit}>
       <fieldset>
         <input
           type="text"
@@ -47,13 +49,13 @@ const GoalForm = ({ onSubmit, goal }) => {
           required
         />
 
+        {/* datetime-local isn't supported in safari */}
         <input
-          type="text"
+          type="datetime-local"
           onChange={({ currentTarget: { value } }) => {
             setEndDate(value);
           }}
           placeholder="End Date"
-          defaultValue={`${currDate}`}
           size={100}
           defaultValue={end_date}
           required

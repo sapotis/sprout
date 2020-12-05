@@ -11,7 +11,7 @@ const up = (knex) =>
     table.string("name").notNullable();
     table.string("description");
     table.string("category");
-    table.date("end_date").notNullable();
+    table.timestamp("end_date").notNullable();
     table.boolean("completed").defaultTo(false);
     table.string("frequency");
     table
