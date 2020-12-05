@@ -10,7 +10,7 @@ import {
 import GoalForm from "./components/GoalForm";
 
 export default function App() {
-  const [userId, setUserId] = useState(1);
+  const [userId, setUserId] = useState(null);
   const [goals, setGoals] = useState([]);
 
   useEffect(() => {
